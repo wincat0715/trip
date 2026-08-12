@@ -174,6 +174,7 @@
 
 <script>
     const defaultAppData = {
+        itineraryVersion: "v2_829_update_v6", // 版本控制，更新行程時會自動同步
         title: "2026 關西 5天4夜",
         date: "2026/8/29（六）～ 2026/9/2（三）",
         days: [
@@ -185,20 +186,19 @@
                 highlight: '抵達關西、加太漁港、淡嶋神社',
                 events: [
                     { time: '04:30', icon: '📍', title: '抵達高雄小港機場', type: 'info' },
-                    { time: '06:55', icon: '✈️', title: '飛機起飛', type: 'flight', desc: '小港機場出發' },
+                    { time: '06:55', icon: '✈️', title: '飛機起飛', type: 'flight', desc: '小港機場出發 (IT284)' },
                     { time: '10:55', icon: '🛬', title: '抵達關西國際機場', type: 'info', desc: '預計出關時間：約1小時' },
                     { time: '12:02', icon: '🚆', title: '關西機場出發', type: 'transport', transport: 'JR', to: 'JR 和歌山站' },
                     { time: '12:51', icon: '📍', title: '抵達 JR 和歌山站', type: 'info' },
-                    { time: '約13:00', icon: '🏨', title: '東橫INN', type: 'hotel', desc: '先前往飯店寄放行李' },
-                    { time: '約13:20', icon: '🍜', title: '午餐', type: 'food', desc: '在和歌山站周邊找午餐', links: [{text: '午餐參考網站', url: 'https://wakateku.jp/zh-hant/tabeteku-zh-hant/?area=wakayama'}] },
-                    { time: '13:45', icon: '🚶', title: '前往車站', type: 'transport', transport: '步行', from: '和歌山站周邊' },
-                    { time: '13:57', icon: '🚃', title: '和歌山市站3號線發車', type: 'transport', transport: '電車', to: '加太站' },
-                    { time: '14:21', icon: '📍', title: '抵達加太站', type: 'info', links: [{text: '加太參考網站', url: 'https://kaikk.tw/nankai-tai/'}] },
-                    { time: '隨後', icon: '🐟', title: '鯛魚列車', type: 'spot', desc: 'めでたいでんしゃ', links: [{text: '時刻表', url: 'https://www.nankai.co.jp/lib/kada/medetai/pdf/medetaitime.pdf'}] },
-                    { time: '下午', icon: '⛩️', title: '淡嶋神社', type: 'goshuin', goshuinName: '淡嶋神社', desc: '參拜、稍微參觀', hasGoshuin: true },
-                    { time: '下午', icon: '🌊', title: '加太港／漁港', type: 'spot', desc: '漁市、商店。如果有機會，希望吃吻仔魚料理' },
-                    { time: '晚上', icon: '🚆', title: '返回和歌山', type: 'transport', from: '加太', to: '和歌山' },
-                    { time: '晚上', icon: '🍽️', title: '和歌山站周邊晚餐', type: 'food', desc: '晚餐選項參考', links: [
+                    { time: '約13:00', icon: '🏨', title: '東橫INN 寄放行李', type: 'hotel', desc: '先去東橫INN丟行李' },
+                    { time: '約13:20', icon: '🍜', title: '和歌山站周邊午餐', type: 'food', desc: '找地方吃午餐', links: [{text: '和歌山午餐美食參考', url: 'https://wakateku.jp/zh-hant/tabeteku-zh-hant/?area=wakayama'}] },
+                    { time: '13:45', icon: '🚶', title: '和歌山站出發', type: 'transport', transport: '往 和歌山市站' },
+                    { time: '13:57', icon: '🚃', title: '和歌山市 3號線發車', type: 'transport', transport: '南海加太線 (鯛魚列車)', to: '加太站', desc: '搭乘鯛魚列車', links: [{text: '鯛魚列車時刻表', url: 'https://www.nankai.co.jp/lib/kada/medetai/pdf/medetaitime.pdf'}, {text: '加太交通與景點攻略', url: 'https://kaikk.tw/nankai-tai/'}] },
+                    { time: '14:21', icon: '📍', title: '到達加太', type: 'info' },
+                    { time: '下午', icon: '⛩️', title: '淡嶋神社', type: 'goshuin', goshuinName: '淡嶋神社', desc: '拿御朱印稍微參觀一下', hasGoshuin: true },
+                    { time: '下午', icon: '🐟', title: '加太港／漁市商店', type: 'spot', desc: '旁邊漁港漁市商店看有沒有機會吃到吻仔魚丼飯' },
+                    { time: '傍晚', icon: '🚆', title: '返回和歌山站', type: 'transport', from: '加太', to: 'JR 和歌山' },
+                    { time: '晚上', icon: '🍽️', title: '和歌山站周邊晚餐', type: 'food', desc: '晚上回來和歌山站周邊吃', links: [
                         {text: '📍 晚餐地點選項 1', url: 'https://www.google.com/maps/place//data=!4m2!3m1!1s0x6000b2de3e549575:0xe02530ea16595c12?entry=gemini&utm_source=gemini&utm_campaign=gem-default'},
                         {text: '📍 晚餐地點選項 2', url: 'https://www.google.com/maps/place//data=!4m2!3m1!1s0x6000b32739be56c1:0x22f8ffc0552f3e43?entry=gemini&utm_source=gemini&utm_campaign=gem-default'}
                     ]}
@@ -209,31 +209,31 @@
                 hotels: [
                     { name: '東橫INN 琵琶湖線南草津站西口', links: [{text: '📍南草津站西出口步行3分鐘', url: 'https://www.google.com/maps/place/Toyoko+Inn+Biwako-line+Minami+Kusatsu+eki+Nishiguchi/@35.0021219,135.9451049,18z/data=!4m9!3m8!1s0x6001727cc51760af:0x860bccd5380c13ce!5m2!4m1!1i2!8m2!3d35.0021956!4d135.9450988!16s%2Fg%2F11hd6w5sf8?hl=zh_TW&entry=ttu&g_ep=EgoyMDI2MDgwNS4xIKXMDSoASAFQAw%3D%3D'}] }
                 ],
-                highlight: '貓咪站長、奈良公園騎自行車',
+                highlight: '貓咪站長、奈良公園騎電動腳踏車巡禮',
                 events: [
                     { time: '08:24', icon: '🚃', title: '和歌山站出發', type: 'transport', transport: '和歌山電鐵貴志川線', desc: '🐱 梅星電車' },
                     { time: '09:00', icon: '📍', title: '抵達貴志站', type: 'spot', desc: '🎫 購買和歌山電鐵貴志川線一日乘車券' },
-                    { time: '上午', icon: '🐱', title: '貴志站活動', type: 'goshuin', goshuinName: '小玉神社', desc: '看小玉站長、小玉神社參拜、小玉咖啡館 (營業:09:00~17:00)', hasGoshuin: true },
+                    { time: '上午', icon: '🐱', title: '貴志站活動與參拜', type: 'goshuin', goshuinName: '小玉神社', desc: '看小玉站長、小玉神社參拜。\n💡 營業時間資訊：\n・候車室：09:00 - 17:30\n・小玉咖啡館：09:00 - 17:00', hasGoshuin: true },
                     { time: '09:38', icon: '🚃', title: '貴志站出發', type: 'transport', transport: '博物館號／たまミュージアム電車' },
                     { time: '09:50', icon: '📍', title: '抵達伊太祈曽站', type: 'info' },
-                    { time: '上午', icon: '⛩️', title: '伊太祈曾神社', type: 'goshuin', goshuinName: '伊太祈曾神社', hasGoshuin: true },
-                    { time: '10:20', icon: '🚃', title: '伊太祈曽站出發', type: 'transport', transport: '查根頓路面電車' },
-                    { time: '10:40', icon: '📍', title: '抵達和歌山', type: 'info' },
+                    { time: '上午', icon: '⛩️', title: '伊太祈曾神社', type: 'goshuin', goshuinName: '伊太祈曾神社', desc: '參拜與收集御朱印', hasGoshuin: true },
+                    { time: '10:20', icon: '🚃', title: '伊太祈曽站出發', type: 'transport', transport: '查根頓路面電車 (Chuggington)' },
+                    { time: '10:40', icon: '📍', title: '抵達和歌山站', type: 'info' },
                     { time: '11:00', icon: '🚆', title: '和歌山站出發', type: 'transport', transport: 'JR', to: '天王寺' },
-                    { time: '12:10', icon: '📍', title: '抵達天王寺', type: 'info' },
-                    { time: '12:15', icon: '🚆', title: '天王寺出發', type: 'transport', transport: 'JR', to: '奈良', warning: '轉乘時間僅5分鐘，請確認月台' },
+                    { time: '12:10', icon: '📍', title: '抵達天王寺站', type: 'info' },
+                    { time: '12:15', icon: '🚆', title: '天王寺站出發', type: 'transport', transport: 'JR 大和路線 (往 16 號月台)', to: 'JR 奈良', warning: '轉乘時間僅 5 分鐘！請快速前往 16 號月台乘車' },
                     { time: '12:48', icon: '📍', title: '抵達 JR 奈良站', type: 'info' },
-                    { time: '約13:00', icon: '🚲', title: '租電動腳踏車', type: 'transport', desc: '準備開始奈良自行車行程' },
-                    { time: '下午', icon: '⛩️', title: '興福寺', type: 'goshuin', goshuinName: '興福寺', hasGoshuin: true },
-                    { time: '下午', icon: '⛩️', title: '冰室神社', type: 'goshuin', goshuinName: '冰室神社', hasGoshuin: true },
-                    { time: '下午', icon: '🦌', title: '東大寺', type: 'goshuin', goshuinName: '東大寺', hasGoshuin: true },
-                    { time: '下午', icon: '⛩️', title: '春日大社', type: 'goshuin', goshuinName: '春日大社', hasGoshuin: true },
-                    { time: '中間', icon: '🍡', title: '休息與點心', type: 'food', desc: '視時間安排午餐或點心' },
-                    { time: '17:00前', icon: '🚲', title: '還自行車', type: 'info' },
-                    { time: '17:37', icon: '🚆', title: 'JR奈良站出發', type: 'transport', transport: 'JR', to: '南草津' },
-                    { time: '18:48', icon: '📍', title: '抵達南草津', type: 'info' },
-                    { time: '晚上', icon: '🏨', title: '旅館 Check-in', type: 'hotel' },
-                    { time: '晚上', icon: '🍽️', title: '南草津晚餐', type: 'food' }
+                    { time: '約13:00', icon: '🚲', title: '租電動腳踏車', type: 'transport', desc: '租借電動腳踏車，準備開啟奈良古都巡禮！' },
+                    { time: '下午', icon: '⛩️', title: '興福寺', type: 'goshuin', goshuinName: '興福寺', desc: '騎自行車造訪參拜、收集御朱印', hasGoshuin: true },
+                    { time: '下午', icon: '⛩️', title: '冰室神社', type: 'goshuin', goshuinName: '冰室神社', desc: '參拜、收集御朱印', hasGoshuin: true },
+                    { time: '下午', icon: '🦌', title: '東大寺', type: 'goshuin', goshuinName: '東大寺', desc: '參觀大佛殿、看小鹿、拿御朱印', hasGoshuin: true },
+                    { time: '下午', icon: '⛩️', title: '春日大社', type: 'goshuin', goshuinName: '春日大社', desc: '參拜、收集御朱印', hasGoshuin: true },
+                    { time: '中間', icon: '🍡', title: '休息與點心／午餐', type: 'food', desc: '騎車途中視時間彈性安排午餐或小吃點心' },
+                    { time: '17:00前', icon: '🚲', title: '還自行車 & 車站逛逛', type: 'info', desc: '歸還電動腳踏車，於 JR 奈良車站周邊逛逛商店街' },
+                    { time: '17:37', icon: '🚆', title: 'JR 奈良站出發', type: 'transport', transport: 'JR', to: '南草津站' },
+                    { time: '18:48', icon: '📍', title: '抵達南草津站', type: 'info' },
+                    { time: '晚上', icon: '🏨', title: '旅館 Check-in', type: 'hotel', desc: '東橫INN 琵琶湖線南草津站西口' },
+                    { time: '晚上', icon: '🍽️', title: '南草津晚餐', type: 'food', desc: '南草津站周邊美味晚餐' }
                 ]
             },
             {
@@ -292,11 +292,13 @@
             {
                 dayNum: 5, date: '9/2', weekday: '三', shortTitle: '關西機場・回台', 
                 hotels: [
-                    { name: '回家玩弄Win喵喵', links: [{text: '📍home', url: 'https://www.google.com/maps/place/807%E9%AB%98%E9%9B%84%E5%B8%82%E4%B8%89%E6%B0%91%E5%8D%80%E5%AE%89%E5%90%89%E9%87%8C%E6%85%B6%E9%9B%B2%E8%A1%97125%E8%99%9F/@22.6439146,120.312717,17z/data=!4m6!3m5!1s0x346e04e8c9ce452f:0x450d5d167f3d8605!8m2!3d22.6438928!4d120.3152077!16s%2Fg%2F11csf899tl?entry=ttu&g_ep=EgoyMDI2MDgwNS4xIKXMDSoASAFQAw%3D%3D'}] }
+                    { name: '回家玩弄Win喵喵', links: [{text: '📍home', url: 'https://www.google.com/maps/place/807%E9%AB%98%E9%9B%84%E5%B8%82%E4%B8%89%E6%B0%91%E5%8D%80%E5%AE%89%E5%90%89%E9%87%8C%E6%85%B6%E9%9B%84%E8%A1%97125%E8%99%9F/@22.6439146,120.312717,17z/data=!4m6!3m5!1s0x346e04e8c9ce452f:0x450d5d167f3d8605!8m2!3d22.6438928!4d120.3152077!16s%2Fg%2F11csf899tl?entry=ttu&g_ep=EgoyMDI2MDgwNS4xIKXMDSoASAFQAw%3D%3D'}] }
                 ],
                 highlight: '平安歸國',
                 events: [
                     { time: '09:00', icon: '🚆', title: '出發前往機場', type: 'transport', transport: '步行/電車', to: '關西國際機場' },
+                    { time: '09:14', icon: '🚆', title: '臨空城站發車', type: 'transport', transport: 'JR / 南海', to: '關西空港站', desc: '09:14 臨空城站發車 ➔ 09:20 抵達關西空港站' },
+                    { time: '09:20', icon: '📍', title: '抵達關西空港站', type: 'info' },
                     { time: '09:30', icon: '📍', title: '抵達機場', type: 'info', desc: '🧳 Check-in、托運行李、安檢' },
                     { time: '12:00', icon: '✈️', title: '飛機起飛', type: 'flight', desc: '準備回程' },
                     { time: '14:00', icon: '🇹🇼', title: '抵達台灣', type: 'info', desc: '旅行圓滿結束' }
@@ -316,12 +318,18 @@
             { day: '9/1', name: '白鬚神社' }
         ],
         defaultPacking: [
-            '護照', '台灣手機', '西瓜卡', '現金', '行動電源', '充電器', '日本交通卡', '雨具', '御朱印帳', '舒適鞋子'
+            '護照', '台灣手機', '西瓜卡', '現金', '行動電源', '充電器', '日本交通卡', '雨衣', '御朱印帳', '舒適鞋子', '陽傘'
         ]
     };
 
     // Load saved appData or fallback to default
-    let appData = JSON.parse(localStorage.getItem('kansai_app_data')) || defaultAppData;
+    let appData = JSON.parse(localStorage.getItem('kansai_app_data'));
+    
+    // 如果是舊版資料，強制更新行程 (但不會動到記事本、花費、行李等獨立狀態)
+    if (!appData || appData.itineraryVersion !== defaultAppData.itineraryVersion) {
+        appData = defaultAppData;
+        localStorage.setItem('kansai_app_data', JSON.stringify(appData));
+    }
 
     // Ensure backwards compatibility if older structure without hotels array exists
     appData.days.forEach(day => {
